@@ -5,24 +5,31 @@ function getData(option) {
 }
 
 function render() {
-  todoListControl.reload(getData({ done: false }));
-  doneListControl.reload(getData({ done: true }));
+  Widget.getControl("todoList").reload(getData({ done: false }));
+  Widget.getControl("doneList").reload(getData({ done: true }));
 }
 
 function insertTodo() {
+  var inputControl = Widget.getControl("todoInput");
+  var value = inputControl.getValue();
+  if (!value) {
+    alert("값을 입력해주세요.");
+    return;
+  }
+
   todoList.push({
     id: crypto.randomUUID(),
-    content: inputControl.getValue(),
+    content: value,
     done: false,
   });
 
   inputControl.valueReset();
+  inputControl.focus();
   render();
 }
 
 function renderCheckBox(data) {
   var inputControl = Widget.input({
-    id: "todoInput",
     type: "checkBox",
     checked: data.done,
     onChange: function (e) {
@@ -36,6 +43,7 @@ function renderCheckBox(data) {
 
 function renderContent(data) {
   var spanContrl = Widget.span({ content: data.content });
+
   return spanContrl.elem;
 }
 
@@ -47,5 +55,6 @@ function renderDeleteBtn(data) {
       render();
     },
   });
+
   return delBtnContrl.elem;
 }

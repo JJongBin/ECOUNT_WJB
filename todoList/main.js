@@ -30,9 +30,16 @@ var doneListControl = Widget.list({
   ],
 });
 
-containerControl.elem.append(inputControl.elem);
-containerControl.elem.append(todoBtnControl.elem);
-containerControl.elem.append(todoListTitleControl.elem);
-containerControl.elem.append(todoListControl.elem);
-containerControl.elem.append(doneListTitleControl.elem);
-containerControl.elem.append(doneListControl.elem);
+containerControl.append(inputControl);
+containerControl.append(todoBtnControl);
+containerControl.append(todoListTitleControl);
+containerControl.append(todoListControl);
+containerControl.append(doneListTitleControl);
+containerControl.append(doneListControl);
+
+// containerControl.elem.append(inputControl.elem);
+// containerControl.elem.append(todoBtnControl.elem);
+// containerControl.elem.append(todoListTitleControl.elem);
+// containerControl.elem.append(todoListControl.elem);
+// containerControl.elem.append(doneListTitleControl.elem);
+// containerControl.elem.append(doneListControl.elem);

@@ -4,6 +4,7 @@ import { createList } from "./list.js";
 import { createInput } from "./input.js";
 import { createSpan } from "./span.js";
 import { createH2 } from "./h2.js";
+import { getControl } from "./core.js";
 
 window.Widget = {
   button: createButton,
@@ -12,4 +13,5 @@ window.Widget = {
   input: createInput,
   span: createSpan,
   h2: createH2,
+  getControl: getControl,
 };

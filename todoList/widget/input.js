@@ -1,6 +1,7 @@
+import { addControl } from "./core";
+
 export function createInput(option) {
   var elem = document.createElement("input");
-  elem.id = option.id;
   elem.type = option.type || "textg";
 
   if (option.checked) elem.checked = option.checked;
@@ -9,7 +10,8 @@ export function createInput(option) {
       option.onChange(e);
     });
 
-  return {
+  var control = {
+    id: option.id,
     elem: elem,
     getValue: function () {
       return elem.value;
@@ -17,5 +19,11 @@ export function createInput(option) {
     valueReset: function () {
       elem.value = "";
     },
+    focus: function () {
+      elem.focus();
+    },
   };
+
+  addControl(control);
+  return control;
 }
