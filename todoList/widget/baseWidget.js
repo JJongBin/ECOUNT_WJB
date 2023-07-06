@@ -1,4 +1,4 @@
-import { addControl, removeControl } from "./core";
+import { addControl, removeControl } from "./core.js";
 
 // 데코레이터 패턴
 export function widget(creator) {
