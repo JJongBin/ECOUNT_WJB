@@ -1,45 +1,49 @@
-import { widget } from "./baseWidget";
-import { Control, ListControl } from "./type/controlTypes";
-import { ListOption } from "./type/optionTypes";
-import { Item } from "./type/types";
+import { Item, Column } from "./type/types";
+import { BaseOption, baseControl } from "./baseWidget";
+import { LiControl } from "./li";
 
-export function _createList(option: ListOption): ListControl {
-  const elem = document.createElement("ul");
-  elem.style.listStyle = "none";
-  elem.style.padding = "0";
-  elem.id = option.id;
+export interface ListOption extends BaseOption {
+  textContent?: string;
+  datas: Item[];
+  columns: Column[];
+}
 
-  const childs: Control[] = [];
+export class ListControl extends baseControl {
+  private _datas: Item[];
+  private _columns: Column[];
 
-  render(option.datas, option.columns);
+  constructor({ id, textContent, datas, columns }: ListOption) {
+    const elem = document.createElement("ul");
+    elem.style.listStyle = "none";
+    elem.style.padding = "0";
 
-  return {
-    id: option.id,
-    elem: elem,
-    reload: (datas: Item[]) => {
-      elem.innerHTML = "";
-      render(datas, option.columns);
-    },
-  };
+    super(id, elem);
+    elem.textContent = textContent || "";
+    this._datas = datas;
+    this._columns = columns;
+  }
 
-  function render(datas: ListOption["datas"], columns: ListOption["columns"]) {
-    elem.innerHTML = "";
-    childs.forEach((child: Control) => {
-      if (child.dispose) child.dispose();
-    });
-    childs.length = 0;
+  reload(datas: Item[]) {
+    super.getElem().innerHTML = "";
+    this.render(datas, this._columns);
+  }
+
+  render(datas: Item[], columns: Column[]) {
+    this._datas = datas;
+    this._columns = columns;
+
+    super.getElem().innerHTML = "";
+    super.getChild().forEach((child) => child.dispose());
 
     datas.forEach((data) => {
-      const liElem = document.createElement("li");
+      const li = new LiControl({ id: data.id });
 
       columns.forEach((column) => {
         const control = column.render(data);
-        liElem.append(control);
+        li.append(control);
       });
 
-      elem.append(liElem);
+      this.append(li);
     });
   }
 }
-
-export const createList = widget(_createList);

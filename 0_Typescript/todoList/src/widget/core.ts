@@ -1,7 +1,7 @@
-import { Control } from "./type/controlTypes";
+import { baseControl } from "./baseWidget";
 
 class Core {
-  private _controls: { [key: string]: Control };
+  private _controls: { [key: string]: baseControl };
   private static _instance: Core;
 
   constructor() {
@@ -11,11 +11,11 @@ class Core {
     Core._instance = this;
   }
 
-  addControl(control: Control): void {
-    Core._instance._controls[control.id] = control;
+  addControl(control: baseControl): void {
+    Core._instance._controls[control.getId()] = control;
   }
 
-  getControl(id: string): Control {
+  getControl(id: string): baseControl {
     return Core._instance._controls[id];
   }
 

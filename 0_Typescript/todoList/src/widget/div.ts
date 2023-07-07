@@ -1,16 +1,14 @@
-import { widget } from "./baseWidget";
-import { Control, DivControl } from "./type/controlTypes";
-import { divOption } from "./type/optionTypes";
+import { BaseOption, baseControl } from "./baseWidget";
 
-export function _createDiv(option: divOption): DivControl {
-  const elem = document.createElement("div");
-  option.parent.append(elem);
-
-  return {
-    id: option.id,
-    elem: elem,
-    append: (control: Control) => elem.append(control.elem),
-  };
+export interface DivOption extends BaseOption {
+  textContent?: string;
 }
 
-export const createDiv = widget(_createDiv);
+export class DivControl extends baseControl {
+  constructor({ id, textContent }: DivOption) {
+    const elem = document.createElement("div");
+
+    super(id, elem);
+    elem.textContent = textContent || "";
+  }
+}

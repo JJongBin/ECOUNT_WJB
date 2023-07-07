@@ -2,17 +2,18 @@ import Widget from "./widget/index";
 import { getData, insertTodo, renderCheckBox, renderContent, renderDeleteBtn } from "./utils";
 
 const root = document.querySelector("#root");
-const containerControl = Widget.div({ id: "container", parent: root });
+const containerControl = new Widget.div({ id: "container" });
+root.append(containerControl.getElem());
 
-const inputControl = Widget.input({ id: "todoInput" });
-const todoBtnControl = Widget.button({
+const inputControl = new Widget.input({ id: "todoInput" });
+const todoBtnControl = new Widget.button({
   id: "insertTodoBtn",
-  label: "입력",
+  textContent: "입력",
   onClick: insertTodo,
 });
 
-const todoListTitleControl = Widget.h2({ content: "할일" });
-const todoListControl = Widget.list({
+const todoListTitleControl = new Widget.h2({ id: "todoHead", textContent: "할일" });
+const todoListControl = new Widget.list({
   id: "todoList",
   datas: getData({ done: false }),
   columns: [
@@ -22,8 +23,8 @@ const todoListControl = Widget.list({
   ],
 });
 
-const doneListTitleControl = Widget.h2({ content: "완료" });
-const doneListControl = Widget.list({
+const doneListTitleControl = new Widget.h2({ id: "doneHead", textContent: "완료" });
+const doneListControl = new Widget.list({
   id: "doneList",
   datas: getData({ done: true }),
   columns: [

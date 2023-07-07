@@ -1,17 +1,15 @@
-import { widget } from "./baseWidget";
-import { ButtonControl } from "./type/controlTypes";
-import { ButtonOption } from "./type/optionTypes";
+import { BaseOption, baseControl } from "./baseWidget";
 
-export function _createButton(option: ButtonOption): ButtonControl {
-  const elem = document.createElement("button");
-  elem.id = option.id;
-  elem.textContent = option.label;
-  elem.onclick = option.onClick;
-
-  return {
-    id: option.id,
-    elem: elem,
-  };
+interface ButtonOption extends BaseOption {
+  textContent: string;
+  onClick: (e: MouseEvent) => void;
 }
+export class ButtonControl extends baseControl {
+  constructor({ id, textContent, onClick }: ButtonOption) {
+    const elem = document.createElement("button");
 
-export const createButton = widget(_createButton);
+    super(id, elem);
+    elem.textContent = textContent;
+    elem.onclick = onClick;
+  }
+}

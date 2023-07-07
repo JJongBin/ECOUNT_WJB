@@ -1,26 +1,33 @@
-import { widget } from "./baseWidget";
-import { InputControl } from "./type/controlTypes";
-import { InputOption } from "./type/optionTypes";
+import { BaseOption, baseControl } from "./baseWidget";
 
-export function _createInput(option: InputOption): InputControl {
-  const elem = document.createElement("input");
-  elem.type = option.type || "text";
-
-  if (option.checked) elem.checked = option.checked;
-  if (option.onChange)
-    elem.addEventListener("change", (e) => {
-      if (option.onChange) option.onChange(e);
-    });
-
-  return {
-    id: option.id,
-    elem: elem,
-    getValue: () => elem.value,
-    focus: () => elem.focus(),
-    valueReset: () => {
-      elem.value = "";
-    },
-  };
+export interface InputOption extends BaseOption {
+  value?: string;
+  type?: string;
+  checked?: boolean;
+  onChange?: (e: Event) => void;
 }
 
-export const createInput = widget(_createInput);
+export class InputControl extends baseControl {
+  constructor({ id, value, type, checked, onChange }: InputOption) {
+    const elem = document.createElement("input");
+
+    super(id, elem);
+    elem.value = value || "";
+    elem.type = type || "text";
+
+    if (checked) elem.checked = checked;
+    if (onChange) elem.onchange = onChange;
+  }
+
+  getValue(): string {
+    return (super.getElem() as HTMLInputElement).value;
+  }
+
+  focus(): void {
+    (super.getElem() as HTMLInputElement).focus();
+  }
+
+  resetValue(): void {
+    (super.getElem() as HTMLInputElement).value = "";
+  }
+}

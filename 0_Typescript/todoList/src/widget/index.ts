@@ -1,18 +1,18 @@
 import Core from "./core";
-import { createButton } from "./button";
-import { createDiv } from "./div";
-import { createList } from "./list";
-import { createInput } from "./input";
-import { createSpan } from "./span";
-import { createH2 } from "./h2";
+import { ButtonControl } from "./button";
+import { DivControl } from "./div";
+import { ListControl } from "./list";
+import { InputControl } from "./input";
+import { SpanControl } from "./span";
+import { H2Control } from "./h2";
 
 const Widget = {
-  button: createButton,
-  list: createList,
-  div: createDiv,
-  input: createInput,
-  span: createSpan,
-  h2: createH2,
+  button: ButtonControl,
+  list: ListControl,
+  div: DivControl,
+  input: InputControl,
+  span: SpanControl,
+  h2: H2Control,
   getControl: Core.getControl,
 };
 

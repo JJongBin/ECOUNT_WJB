@@ -1,6 +1,7 @@
 import Widget from "./widget";
-import { ListControl, InputControl } from "./widget/type/controlTypes";
-import { Item } from "./type/types";
+import { ListControl } from "./widget/list";
+import { InputControl } from "./widget/input";
+import { Item } from "./widget/type/types";
 
 const todoList: Item[] = [];
 
@@ -27,13 +28,14 @@ export function insertTodo() {
     done: false,
   });
 
-  inputControl.valueReset();
+  inputControl.resetValue();
   inputControl.focus();
   render();
 }
 
 export function renderCheckBox(data: Item) {
-  const inputControl = Widget.input({
+  const inputControl = new Widget.input({
+    id: "checkbox",
     type: "checkBox",
     checked: data.done,
     onChange: (e: Event) => {
@@ -44,23 +46,24 @@ export function renderCheckBox(data: Item) {
     },
   });
 
-  return inputControl.elem;
+  return inputControl;
 }
 
 export function renderContent(data: Item) {
-  const spanContrl = Widget.span({ content: data.content });
+  const spanContrl = new Widget.span({ id: data.id, textContent: data.content });
 
-  return spanContrl.elem;
+  return spanContrl;
 }
 
 export function renderDeleteBtn(data: Item) {
-  const delBtnContrl = Widget.button({
-    label: "삭제",
+  const delBtnContrl = new Widget.button({
+    id: data.id,
+    textContent: "삭제",
     onClick: () => {
       todoList.splice(todoList.indexOf(data), 1);
       render();
     },
   });
 
-  return delBtnContrl.elem;
+  return delBtnContrl;
 }

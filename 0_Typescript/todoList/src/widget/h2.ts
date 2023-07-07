@@ -1,15 +1,14 @@
-import { widget } from "./baseWidget";
-import { H2Control } from "./type/controlTypes";
-import { H2Option } from "./type/optionTypes";
+import { BaseOption, baseControl } from "./baseWidget";
 
-export function _createH2(option: H2Option): H2Control {
-  const elem = document.createElement("h2");
-  elem.id = option.id;
-  elem.textContent = option.content;
-
-  return {
-    id: option.id,
-    elem: elem,
-  };
+export interface H2Option extends BaseOption {
+  textContent: string;
 }
-export const createH2 = widget(_createH2);
+
+export class H2Control extends baseControl {
+  constructor({ id, textContent }: H2Option) {
+    const elem = document.createElement("h2");
+
+    super(id, elem);
+    elem.textContent = textContent || "";
+  }
+}

@@ -1,15 +1,14 @@
-import { widget } from "./baseWidget";
-import { SpanControl } from "./type/controlTypes";
-import { SpanOption } from "./type/optionTypes";
+import { BaseOption, baseControl } from "./baseWidget";
 
-export function _createSpan(option: SpanOption): SpanControl {
-  const elem = document.createElement("span");
-  elem.textContent = option.content;
-
-  return {
-    id: option.id,
-    elem: elem,
-  };
+export interface SpanOption extends BaseOption {
+  textContent: string;
 }
 
-export const createSpan = widget(_createSpan);
+export class SpanControl extends baseControl {
+  constructor({ id, textContent }: SpanOption) {
+    const elem = document.createElement("span");
+
+    super(id, elem);
+    elem.textContent = textContent || "";
+  }
+}
