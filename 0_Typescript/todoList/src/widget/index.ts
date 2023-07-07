@@ -13,7 +13,7 @@ const Widget = {
   input: createInput,
   span: createSpan,
   h2: createH2,
-  getControl: new Core().getControl,
+  getControl: Core.getControl,
 };
 
 export default Widget;

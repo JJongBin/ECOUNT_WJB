@@ -1,5 +1,5 @@
-import Widget from "../widget";
-import { ListControl, InputControl } from "../widget/type/controlTypes";
+import Widget from "./widget";
+import { ListControl, InputControl } from "./widget/type/controlTypes";
 import { Item } from "./type/types";
 
 const todoList: Item[] = [];
@@ -36,7 +36,9 @@ export function renderCheckBox(data: Item) {
   const inputControl = Widget.input({
     type: "checkBox",
     checked: data.done,
-    onChange: (e: any) => {
+    onChange: (e: Event) => {
+      if (!(e.target instanceof HTMLInputElement)) return;
+
       data.done = e.target.checked;
       render();
     },
@@ -54,7 +56,7 @@ export function renderContent(data: Item) {
 export function renderDeleteBtn(data: Item) {
   const delBtnContrl = Widget.button({
     label: "삭제",
-    onClick: function () {
+    onClick: () => {
       todoList.splice(todoList.indexOf(data), 1);
       render();
     },

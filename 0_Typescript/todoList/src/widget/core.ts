@@ -1,25 +1,28 @@
 import { Control } from "./type/controlTypes";
 
-export default class Core {
+class Core {
   private _controls: { [key: string]: Control };
-  private _instance: Core;
+  private static _instance: Core;
 
   constructor() {
-    if (this._instance) return this._instance;
+    if (Core._instance) return Core._instance;
 
     this._controls = {};
-    this._instance = this;
+    Core._instance = this;
   }
 
   addControl(control: Control): void {
-    this._controls[control.id] = control;
+    Core._instance._controls[control.id] = control;
   }
 
   getControl(id: string): Control {
-    return this._controls[id];
+    return Core._instance._controls[id];
   }
 
   removeControl(id: string): void {
-    delete this._controls[id];
+    delete Core._instance._controls[id];
   }
 }
+
+const WidgetCore = new Core();
+export default WidgetCore;

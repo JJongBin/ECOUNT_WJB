@@ -1,4 +1,4 @@
-import Widget from "../widget/index";
+import Widget from "./widget/index";
 import { getData, insertTodo, renderCheckBox, renderContent, renderDeleteBtn } from "./utils";
 
 const root = document.querySelector("#root");
